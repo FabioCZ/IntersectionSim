@@ -10,28 +10,21 @@ namespace IntersectionSim.Model
 {
     static class Tools
     {
-        static Random randomGen = new Random();
+        public  static Random RandomGen = new Random();
+        private static int _carCt = 0;
 
-        public static float DistanceBetween(LanePoint a, LanePoint b)
+        public static string NexCarId
         {
-            return Convert.ToSingle(Math.Sqrt(Math.Pow((b.X - a.X),2) + Math.Pow((b.Y - a.Y), 2)));
+            get
+            {
+                _carCt++;
+                return _carCt.ToString();
+            }
         }
-
-        public static LanePoint PointFromStart(LanePoint from, LanePoint to, float dist)
-        {
-            var length = DistanceBetween(from, to);
-            Tuple<float, float> unitVector = Tuple.Create
-                (
-                    (to.X - from.X) / length,
-                    (to.Y - from.Y) / length
-                );
-            return new LanePoint(from.X + dist * unitVector.Item1, from.Y + dist * unitVector.Item2);
-        }
-
         public static Brush GetRandomBrush()
         {
             KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
-            KnownColor randomColorName = names[randomGen.Next(names.Length)];
+            KnownColor randomColorName = names[RandomGen.Next(names.Length)];
 
             return new SolidBrush(Color.FromKnownColor(randomColorName));
         }

@@ -68,12 +68,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Coord.cs" />
-    <Compile Include="Model\Intersection.cs" />
     <Compile Include="Model\Car.cs" />
-    <Compile Include="Model\Lane.cs" />
-    <Compile Include="Model\LanePoint.cs" />
+    <Compile Include="Model\ConventionalRoundabout.cs" />
+    <Compile Include="Model\EntryLane.cs" />
+    <Compile Include="Model\Roundabout.cs" />
     <Compile Include="Model\Tools.cs" />
+    <Compile Include="Model\TrafficPattern.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
