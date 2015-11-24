@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuickGraph.Collections;
 
 namespace IntersectionSim.Model
 {
@@ -26,13 +25,15 @@ namespace IntersectionSim.Model
 
         public static int SimulationDuration = 60;  //TODO change to bind to field in UI
 
-        public static int CurrTime { get; protected set; }
+        public static int MainCurrTime { get; protected set; }
+
+        public int OwnCurrTime;
 
         public bool SimulationFinished
         {
             get
             {
-                if (CurrTime < SimulationDuration) return false;
+                if (MainCurrTime < SimulationDuration) return false;
                 for (int i = 0; i < 8; i++)
                 {
                     if (Circle[i] != null) return false;
@@ -70,7 +71,7 @@ namespace IntersectionSim.Model
                 Circle.Add(null);
                 OuterCircle.Add(null);
             }
-            CurrTime = 0;
+            MainCurrTime = 0;
         }
 
         public abstract void IterateSimaultion();
@@ -86,13 +87,15 @@ namespace IntersectionSim.Model
         {
             foreach (var entryLane in EntryLanes)
             {
-                entryLane.UpdateQueue(CurrTime);
+                entryLane.UpdateQueue(MainCurrTime);
             }
         }
 
         public object Clone()
         {
-            return this.Copy();
+            object a = this.Copy();
+            ((Roundabout) a).OwnCurrTime = MainCurrTime;
+            return a;
         }
     }
 }

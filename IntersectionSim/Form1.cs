@@ -70,7 +70,9 @@ namespace IntersectionSim
                 if (_roundabout?.Circle[i] != null)
                 {
                     e.Graphics.FillEllipse(_roundabout.Circle[i].Color,CircleCoords[i].Item1 - 20,CircleCoords[i].Item2 - 20,40.0f,40.0f);
+#if DEBUG
                     e.Graphics.DrawString(_roundabout.Circle[i].Id,font,blackBrush, CircleCoords[i].Item1 - 10, CircleCoords[i].Item2 - 20);
+#endif
                     string from = _roundabout.Circle[i].From.ToString().Substring(0,1);
                     string to = _roundabout.Circle[i].To.ToString().Substring(0, 1);
                     string fromTo = from + "->" + to;
@@ -87,8 +89,10 @@ namespace IntersectionSim
                 {
                     e.Graphics.FillEllipse(_roundabout.OuterCircle[i].Color, OuterCircleCoords[i].Item1 - 20,
                         OuterCircleCoords[i].Item2 - 20, 40.0f, 40.0f);
+#if DEBUG
                     e.Graphics.DrawString(_roundabout.OuterCircle[i].Id, font, blackBrush, OuterCircleCoords[i].Item1 - 10,
                         OuterCircleCoords[i].Item2 - 20);
+#endif
                     string from = _roundabout.OuterCircle[i].From.ToString().Substring(0, 1);
                     string to = _roundabout.OuterCircle[i].To.ToString().Substring(0, 1);
                     string fromTo = from + "->" + to;
@@ -112,7 +116,7 @@ namespace IntersectionSim
             _roundabout.IterateSimaultion();
             groupBox1.Refresh();
 
-            CurrTimeLabel.Text = $"Time : {Roundabout.CurrTime} sec";
+            CurrTimeLabel.Text = $"Time : {Roundabout.MainCurrTime} sec";
             CheckSimulationFinished();
         }
 
