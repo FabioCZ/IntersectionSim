@@ -24,7 +24,7 @@ namespace IntersectionSim
         {
 
             InitializeComponent();
-            Updater.Interval = 100;
+            Updater.Interval = (int)(1000.0 / (double)SpeedUpSelector.Value);
             Updater.Tick += new EventHandler(UpdaterEventHandler);
             CircleCoords = new List<Tuple<float, float>>()
             {
@@ -49,11 +49,19 @@ namespace IntersectionSim
                 Tuple.Create(400.0f, 225.0f),
                 Tuple.Create(275.0f, 100.0f)
             };
+
+            //Ho
+            SpeedUpSelector.ValueChanged += (sender, args) =>
+            {
+                Updater.Interval = (int) (1000.0/(double) SpeedUpSelector.Value);
+            };
         }
 
         private void groupBox1_Paint(object sender, PaintEventArgs e)
         {
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0));
+            Pen blackPen = new Pen(Color.Black);
+            Brush blackBrush = new SolidBrush(Color.Black);
+            Font font = new Font("Arial",8);
             for (int i = 0; i < 8; i++)
             {
                 //Inner
@@ -62,59 +70,109 @@ namespace IntersectionSim
                 if (_roundabout?.Circle[i] != null)
                 {
                     e.Graphics.FillEllipse(_roundabout.Circle[i].Color,CircleCoords[i].Item1 - 20,CircleCoords[i].Item2 - 20,40.0f,40.0f);
-                }
+                    e.Graphics.DrawString(_roundabout.Circle[i].Id,font,blackBrush, CircleCoords[i].Item1 - 10, CircleCoords[i].Item2 - 20);
+                    string from = _roundabout.Circle[i].From.ToString().Substring(0,1);
+                    string to = _roundabout.Circle[i].To.ToString().Substring(0, 1);
+                    string fromTo = from + "->" + to;
+                    e.Graphics.DrawString(fromTo, font, blackBrush, CircleCoords[i].Item1 - 13, CircleCoords[i].Item2 );
 
+                }
+            }
+            for (int i = 0; i < 8; i++)
+            {
                 //Outer
                 e.Graphics.DrawEllipse(blackPen, OuterCircleCoords[i].Item1 - 20, OuterCircleCoords[i].Item2 - 20, 40.0f, 40.0f);
 
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                var firstCar = _roundabout?.EntryLanes[i].PeekAtQueue();
-                if (firstCar != null)
+                if (_roundabout?.OuterCircle[i] != null)
                 {
-                    e.Graphics.FillEllipse(firstCar.Color,OuterCircleCoords[i*2].Item1 - 20,CircleCoords[i*2].Item2 - 20,40.0f,40.0f);
+                    e.Graphics.FillEllipse(_roundabout.OuterCircle[i].Color, OuterCircleCoords[i].Item1 - 20,
+                        OuterCircleCoords[i].Item2 - 20, 40.0f, 40.0f);
+                    e.Graphics.DrawString(_roundabout.OuterCircle[i].Id, font, blackBrush, OuterCircleCoords[i].Item1 - 10,
+                        OuterCircleCoords[i].Item2 - 20);
+                    string from = _roundabout.OuterCircle[i].From.ToString().Substring(0, 1);
+                    string to = _roundabout.OuterCircle[i].To.ToString().Substring(0, 1);
+                    string fromTo = from + "->" + to;
+                    e.Graphics.DrawString(fromTo, font, blackBrush, OuterCircleCoords[i].Item1 - 13, OuterCircleCoords[i].Item2);
                 }
+            }
+            if (_roundabout != null)
+            {
+                e.Graphics.DrawString(_roundabout.EntryLanes[0].QueuedCarsMin1, font, blackBrush, OuterCircleCoords[0].Item1, OuterCircleCoords[0].Item2 - 40);
+                e.Graphics.DrawString(_roundabout.EntryLanes[1].QueuedCarsMin1, font, blackBrush, OuterCircleCoords[2].Item1 - 40, OuterCircleCoords[2].Item2);
+                e.Graphics.DrawString(_roundabout.EntryLanes[2].QueuedCarsMin1, font, blackBrush, OuterCircleCoords[4].Item1, OuterCircleCoords[4].Item2 + 40);
+                e.Graphics.DrawString(_roundabout.EntryLanes[3].QueuedCarsMin1, font, blackBrush, OuterCircleCoords[6].Item1 + 40, OuterCircleCoords[6].Item2);
+
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                if (_roundabout?.FinishedCars != null && _roundabout.FinishedCars[i].Any())
-                {
-                    var finishedCar = from a in _roundabout.FinishedCars[i] where a.ExitTime == Roundabout.CurrTime select a;
-                    if (finishedCar.Any())
-                    {
-                        e.Graphics.FillEllipse(finishedCar.ToArray()[0].Color, OuterCircleCoords[i*2 + 1].Item1 - 20,
-                            CircleCoords[i*2 + 1].Item2 - 20, 40.0f, 40.0f);
-                    }
-                }
-            }
+
         }
 
         private void UpdaterEventHandler(object myObject, EventArgs myEventArgs)
         {
             _roundabout.IterateSimaultion();
-            groupBox1.Invalidate();
+            groupBox1.Refresh();
 
             CurrTimeLabel.Text = $"Time : {Roundabout.CurrTime} sec";
+            CheckSimulationFinished();
+        }
+
+        public void CheckSimulationFinished()
+        {
+            if (_roundabout.SimulationFinished)
+            {
+                MessageBox.Show("Simulation finished");
+                Updater.Stop();
+                ManualIterButton.Enabled = false;
+                PauseButton.Enabled = false;
+                ResumeButton.Enabled = false;
+            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            Updater.Interval = (int) (1000.0/(double) SpeedUpSelector.Value);
             Roundabout.SimulationDuration = (int) SimulationDurationSelector.Value;
-            var patterns = new List<TrafficPattern>()
-            {
-                new TrafficPattern(EntryPosition.North),
-                new TrafficPattern(EntryPosition.West),
-                new TrafficPattern(EntryPosition.South),
-                new TrafficPattern(EntryPosition.East),
-            };
+            List<TrafficPattern> patterns = new List<TrafficPattern>();
+
+            //Custom car flows
+            //NORTH
+            if (CheckBoxNorth.Checked)
+                patterns.Add(new TrafficPattern(EntryPosition.North, CarPerMinN.IntVal(), ToNFromN.IntVal(),
+                    ToEFromN.IntVal(), ToSFromN.IntVal(), ToWFromN.IntVal()));
+            else
+                patterns.Add(new TrafficPattern(EntryPosition.North));
+            //WEST 
+            if (CheckBoxWest.Checked)    
+                patterns.Add(new TrafficPattern(EntryPosition.West, CarPerMinW.IntVal(), ToNFromW.IntVal(),
+                    ToEFromW.IntVal(), ToSFromW.IntVal(), ToWFromW.IntVal()));
+            else
+                patterns.Add(new TrafficPattern(EntryPosition.West));
+            //SOUTH
+            if (CheckBoxSouth.Checked)  
+                patterns.Add(new TrafficPattern(EntryPosition.South, CarPerMinS.IntVal(), ToNFromS.IntVal(),
+                    ToEFromS.IntVal(), ToSFromS.IntVal(), ToWFromS.IntVal()));
+            else
+                patterns.Add(new TrafficPattern(EntryPosition.South));
+            //SOUTH
+            if (CheckBoxEast.Checked)
+                patterns.Add(new TrafficPattern(EntryPosition.East, CarPerMinE.IntVal(), ToNFromE.IntVal(),
+                    ToEFromE.IntVal(), ToSFromE.IntVal(), ToWFromE.IntVal()));
+            else
+                patterns.Add(new TrafficPattern(EntryPosition.East));
+            //Custom car flows end
+
+            LaneGroup1.Enabled = false;
+            LaneGroup2.Enabled = false;
+            LaneGroup3.Enabled = false;
+            LaneGroup4.Enabled = false;
+
+            Roundabout.SimulationDuration = SimulationDurationSelector.IntVal();
+            SimulationDurationSelector.Enabled = false;
             _roundabout = new ConventionalRoundabout(patterns);
-            ResumeButton.Enabled = false;
-            PauseButton.Enabled = true;
+            ResumeButton.Enabled = true;
+            PauseButton.Enabled = false;
             ManualIterButton.Enabled = true;
         }
+
 
         private void PauseButton_Click(object sender, EventArgs e)
         {

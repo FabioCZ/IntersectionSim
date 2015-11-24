@@ -16,7 +16,14 @@ namespace IntersectionSim.Model
 
         public bool AreCarsWaiting => QueuedCars.Any();
 
-        public Car NextCar => QueuedCars.Dequeue();
+        public string QueuedCarsMin1
+        {
+            get
+            {
+                if (QueuedCars.Count == 0) return "+" + 0;
+                return "+" + (QueuedCars.Count - 1);
+            }
+        }
 
         public EntryLane(TrafficPattern pattern)
         {
@@ -25,6 +32,11 @@ namespace IntersectionSim.Model
             CarsToSpawn = new List<Car>();
             QueuedCars = new Queue<Car>();
             PopulateCarsToSpawn();
+        }
+
+        public Car GetNextCar()
+        {
+            return AreCarsWaiting ? QueuedCars.Dequeue() : null;
         }
 
 
@@ -85,7 +97,7 @@ namespace IntersectionSim.Model
         {
             if (QueuedCars.Any())
                 return QueuedCars.Peek();
-            var nextCarMaybe = from a in CarsToSpawn where a.EntryTime == (Roundabout.CurrTime + 2) select a;
+            var nextCarMaybe = from a in CarsToSpawn where a.EntryTime == (Roundabout.MainCurrTime + 2) select a;
             if(nextCarMaybe.Count() > 1)
                 throw new Exception("There was a car time collision.");
             if (nextCarMaybe.Count() == 1)

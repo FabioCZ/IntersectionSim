@@ -14,57 +14,57 @@ namespace IntersectionSim.Model
 
         public override void IterateSimaultion()
         {
-            CurrTime++;
-            UpdateWaitQueues();
-
-            //pop cars that are done
-            if (Circle[NorthOut]?.To == EntryPosition.North)
-            {
-                Circle[NorthOut].ExitTime = CurrTime + 1;
-                FinishedCars[(int)EntryPosition.North].Add(Circle[NorthOut]);
-                Circle[NorthOut] = null;
-            }
-            if (Circle[WestOut]?.To == EntryPosition.West)
-            {
-                Circle[WestOut].ExitTime = CurrTime + 1;
-                FinishedCars[(int)EntryPosition.North].Add(Circle[WestOut]);
-                Circle[WestOut] = null;
-            }
-            if (Circle[SouthOut]?.To == EntryPosition.South)
-            {
-                Circle[SouthOut].ExitTime = CurrTime + 1;
-                FinishedCars[(int)EntryPosition.North].Add(Circle[SouthOut]);
-                Circle[SouthOut] = null;
-            }
-            if (Circle[EastOut]?.To == EntryPosition.East)
-            {
-                Circle[EastOut].ExitTime = CurrTime + 1;
-                FinishedCars[(int)EntryPosition.North].Add(Circle[EastOut]);
-                Circle[EastOut] = null;
-            }
-
-            //Add new cars from entry lanes
-            if (Circle[NorthOut] == null && EntryLanes[(int)EntryPosition.North].AreCarsWaiting)
-            {
-                Circle[NorthOut] = EntryLanes[(int) EntryPosition.North].NextCar;
-            }
-            if (Circle[WestOut] == null && EntryLanes[(int)EntryPosition.West].AreCarsWaiting)
-            {
-                Circle[WestOut] = EntryLanes[(int)EntryPosition.West].NextCar;
-            }
-            if (Circle[SouthOut] == null && EntryLanes[(int)EntryPosition.South].AreCarsWaiting)
-            {
-                Circle[SouthOut] = EntryLanes[(int)EntryPosition.South].NextCar;
-            }
-            if (Circle[EastOut] == null && EntryLanes[(int)EntryPosition.East].AreCarsWaiting)
-            {
-                Circle[EastOut] = EntryLanes[(int)EntryPosition.East].NextCar;
-            }
-
+            MainCurrTime++;
             //Rotate Roundabout
+
+            //pop off finished cars
+            for (int i = 0; i < 4; i++)
+            {
+                int helperIndex = i == 3 ? 0 : i + 1;
+                if (Circle[(i *2) + 1]?.To == (EntryPosition)helperIndex)
+                {
+                    Circle[(i * 2) + 1].ExitTime = MainCurrTime;
+                    FinishedCars[i].Add(Circle[(i *2) + 1]);
+                    Circle[(i * 2) + 1] = null;
+                }
+            }
             RotateCircle();
 
+            //insert cars into roundabout
+            for (int i = 0; i < 4; i++)
+            {
+                var helperIndex = i == 0 ? 7 : (i*2) -1;
+                if (EntryLanes[i].AreCarsWaiting && Circle[i*2] == null)
+                {
+                    Circle[i*2] = EntryLanes[i].GetNextCar();
+                }
+            }
+            UpdateWaitQueues();
 
+
+            for (int i = 0; i < 4; i++)
+            {
+                //add cars from queue to outer circle
+
+                if (EntryLanes[i].AreCarsWaiting)
+                {
+                    OuterCircle[i*2] = EntryLanes[i].PeekAtQueue();
+                }
+                else
+                {
+                    OuterCircle[i*2] = null;
+                }
+
+                //add finished cars to outer circle
+                if (FinishedCars[i].Any() && FinishedCars[i].Last().ExitTime == MainCurrTime)
+                {
+                    OuterCircle[(i*2) + 1] = FinishedCars[i].Last();
+                }
+                else
+                {
+                    OuterCircle[(i*2) + 1] = null;
+                }
+            }
         }
     }
 }

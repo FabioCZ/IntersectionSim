@@ -8,7 +8,7 @@ using QuickGraph.Collections;
 namespace IntersectionSim.Model
 {
 
-    internal abstract class Roundabout
+    internal abstract class Roundabout : ICloneable
     {
         public readonly int NorthIn = 0;
         public readonly int WestOut = 1;
@@ -20,12 +20,27 @@ namespace IntersectionSim.Model
         public readonly int NorthOut = 7;
 
         public List<Car> Circle;
+        public List<Car> OuterCircle;
         public List<List<Car>> FinishedCars;
         public List<EntryLane> EntryLanes; 
 
         public static int SimulationDuration = 60;  //TODO change to bind to field in UI
 
         public static int CurrTime { get; protected set; }
+
+        public bool SimulationFinished
+        {
+            get
+            {
+                if (CurrTime < SimulationDuration) return false;
+                for (int i = 0; i < 8; i++)
+                {
+                    if (Circle[i] != null) return false;
+                    if (OuterCircle[i] != null) return false;
+                }
+                return true;
+            }
+        }
 
         protected Roundabout(List<TrafficPattern> patterns)
         {
@@ -49,9 +64,11 @@ namespace IntersectionSim.Model
             };
 
             Circle = new List<Car>(8);
+            OuterCircle = new List<Car>(8);
             for (var i = 0; i < 8; i++)
             {
                 Circle.Add(null);
+                OuterCircle.Add(null);
             }
             CurrTime = 0;
         }
@@ -71,6 +88,11 @@ namespace IntersectionSim.Model
             {
                 entryLane.UpdateQueue(CurrTime);
             }
+        }
+
+        public object Clone()
+        {
+            return this.Copy();
         }
     }
 }
