@@ -124,8 +124,8 @@ namespace IntersectionSim
         {
             if (_roundabout.SimulationFinished)
             {
-                MessageBox.Show("Simulation finished");
                 Updater.Stop();
+                MessageBox.Show("Simulation finished");
                 ManualIterButton.Enabled = false;
                 PauseButton.Enabled = false;
                 ResumeButton.Enabled = false;
