@@ -83,6 +83,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CheckBoxNorth = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.ManualIterButton = new System.Windows.Forms.Button();
             this.ResumeButton = new System.Windows.Forms.Button();
             this.PauseButton = new System.Windows.Forms.Button();
@@ -91,9 +94,6 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.SimulationDurationSelector = new System.Windows.Forms.NumericUpDown();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label24 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -142,10 +142,10 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.ImageLocation = "http://www.charbase.com/images/glyph/8634";
-            this.pictureBox2.Location = new System.Drawing.Point(200, 200);
+            this.pictureBox2.ImageLocation = "roundabout.png";
+            this.pictureBox2.Location = new System.Drawing.Point(225, 225);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -754,6 +754,38 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Simulation Options";
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(190, 16);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(88, 13);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Simulation Mode:";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Enabled = false;
+            this.radioButton2.Location = new System.Drawing.Point(281, 37);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(70, 17);
+            this.radioButton2.TabIndex = 9;
+            this.radioButton2.Text = "Intelligent";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(190, 37);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(87, 17);
+            this.radioButton1.TabIndex = 8;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Conventional";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
             // ManualIterButton
             // 
             this.ManualIterButton.Enabled = false;
@@ -843,38 +875,6 @@
             0,
             0,
             0});
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(190, 37);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(87, 17);
-            this.radioButton1.TabIndex = 8;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Conventional";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(281, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(70, 17);
-            this.radioButton2.TabIndex = 9;
-            this.radioButton2.Text = "Intelligent";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(190, 16);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(88, 13);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "Simulation Mode:";
             // 
             // Form1
             // 
