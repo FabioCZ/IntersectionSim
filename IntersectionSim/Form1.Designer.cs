@@ -84,8 +84,8 @@
             this.CheckBoxNorth = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.IntelligentRadio = new System.Windows.Forms.RadioButton();
+            this.ConventialRadio = new System.Windows.Forms.RadioButton();
             this.ManualIterButton = new System.Windows.Forms.Button();
             this.ResumeButton = new System.Windows.Forms.Button();
             this.PauseButton = new System.Windows.Forms.Button();
@@ -737,8 +737,8 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.radioButton2);
-            this.groupBox4.Controls.Add(this.radioButton1);
+            this.groupBox4.Controls.Add(this.IntelligentRadio);
+            this.groupBox4.Controls.Add(this.ConventialRadio);
             this.groupBox4.Controls.Add(this.ManualIterButton);
             this.groupBox4.Controls.Add(this.ResumeButton);
             this.groupBox4.Controls.Add(this.PauseButton);
@@ -763,28 +763,28 @@
             this.label24.TabIndex = 10;
             this.label24.Text = "Simulation Mode:";
             // 
-            // radioButton2
+            // IntelligentRadio
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(281, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(70, 17);
-            this.radioButton2.TabIndex = 9;
-            this.radioButton2.Text = "Intelligent";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.IntelligentRadio.AutoSize = true;
+            this.IntelligentRadio.Enabled = false;
+            this.IntelligentRadio.Location = new System.Drawing.Point(281, 37);
+            this.IntelligentRadio.Name = "IntelligentRadio";
+            this.IntelligentRadio.Size = new System.Drawing.Size(70, 17);
+            this.IntelligentRadio.TabIndex = 9;
+            this.IntelligentRadio.Text = "Intelligent";
+            this.IntelligentRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // ConventialRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(190, 37);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(87, 17);
-            this.radioButton1.TabIndex = 8;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Conventional";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.ConventialRadio.AutoSize = true;
+            this.ConventialRadio.Checked = true;
+            this.ConventialRadio.Location = new System.Drawing.Point(190, 37);
+            this.ConventialRadio.Name = "ConventialRadio";
+            this.ConventialRadio.Size = new System.Drawing.Size(87, 17);
+            this.ConventialRadio.TabIndex = 8;
+            this.ConventialRadio.TabStop = true;
+            this.ConventialRadio.Text = "Conventional";
+            this.ConventialRadio.UseVisualStyleBackColor = true;
             // 
             // ManualIterButton
             // 
@@ -993,8 +993,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton IntelligentRadio;
+        private System.Windows.Forms.RadioButton ConventialRadio;
     }
 }
 

@@ -55,6 +55,7 @@
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\ConventionalRoundabout.cs" />
     <Compile Include="Model\EntryLane.cs" />
+    <Compile Include="Model\IntelligentRoundabout.cs" />
     <Compile Include="Model\Roundabout.cs" />
     <Compile Include="Model\Tools.cs" />
     <Compile Include="Model\TrafficPattern.cs" />

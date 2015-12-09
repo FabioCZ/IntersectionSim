@@ -19,9 +19,11 @@ namespace IntersectionSim
         Timer Updater = new Timer();
         bool initialDraw = true;
         private bool hasStarted = false;
+        private bool firstDraw = true;
         private Roundabout _roundabout;
         private List<Tuple<float, float>> CircleCoords;
         private List<Tuple<float, float>> OuterCircleCoords;
+        private GraphicsState VisGraphics;
 
         private Pen blackPen = new Pen(Color.Black)
         {
@@ -78,30 +80,10 @@ namespace IntersectionSim
 
         private void groupBox1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(blackPen, 10, 180, 480, 140);
-            e.Graphics.FillRectangle(greyBrush, 10, 180, 480, 140);
-            e.Graphics.FillRectangle(whiteBrush, 10, 248, 480, 4);
-
-            e.Graphics.DrawRectangle(blackPen, 180, 10, 140, 480);
-            e.Graphics.FillRectangle(greyBrush, 180, 10, 140, 480);
-            e.Graphics.FillRectangle(whiteBrush, 248, 10, 4, 480);
-
-            e.Graphics.DrawEllipse(blackPen, 110, 110, 280, 280);
-            e.Graphics.FillEllipse(greyBrush, 110, 110, 280, 280);
-            e.Graphics.DrawEllipse(blackPen, 200, 200, 100, 100);
-            e.Graphics.FillEllipse(greenBrush, 200, 200, 100, 100);
-
-            e.Graphics.DrawLine(whiteArrowPen, a, 20, a, 60);
-            e.Graphics.DrawLine(whiteArrowPen, 60, a, 20, a);
-            e.Graphics.DrawLine(whiteArrowPen, 20, b, 60, b);
-            e.Graphics.DrawLine(whiteArrowPen, a, 440, a, 480);
-            e.Graphics.DrawLine(whiteArrowPen, b, 480, b, 440);
-            e.Graphics.DrawLine(whiteArrowPen, 480, a, 440, a);
-            e.Graphics.DrawLine(whiteArrowPen, 440, b, 480, b);
-            e.Graphics.DrawLine(whiteArrowPen, b, 60, b, 20);
-
-
-
+            if(firstDraw)
+                StaticGraphics(e);
+            else
+                e.Graphics.Restore(VisGraphics);
 
             for (int i = 0; i < 8; i++)
             {
@@ -149,13 +131,51 @@ namespace IntersectionSim
 
             }
 
+        }
 
+        public void StaticGraphics(PaintEventArgs e)
+        {
+            //incoming roads
+            e.Graphics.DrawRectangle(blackPen, 10, 180, 480, 140);
+            e.Graphics.FillRectangle(greyBrush, 10, 180, 480, 140);
+            e.Graphics.FillRectangle(whiteBrush, 10, 248, 480, 4);
+            e.Graphics.DrawRectangle(blackPen, 180, 10, 140, 480);
+            e.Graphics.FillRectangle(greyBrush, 180, 10, 140, 480);
+            e.Graphics.FillRectangle(whiteBrush, 248, 10, 4, 480);
+
+            //roundabout circle
+            //e.Graphics.DrawEllipse(blackPen, 110, 110, 280, 280);
+            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f,31);
+            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f+90,31);
+            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f+180,31);
+            e.Graphics.DrawArc(blackPen,110,110,280,280,29f+270,31);
+            e.Graphics.FillEllipse(greyBrush, 110, 110, 280, 280);
+            e.Graphics.DrawEllipse(blackPen, 200, 200, 100, 100);
+            e.Graphics.FillEllipse(greenBrush, 200, 200, 100, 100);
+
+            //waiting white lines
+            e.Graphics.FillRectangle(whiteBrush, 180, 110, 72, 4);
+            e.Graphics.FillRectangle(whiteBrush, 110, 248, 4, 72);
+            e.Graphics.FillRectangle(whiteBrush, 248, 388, 72, 4);
+            e.Graphics.FillRectangle(whiteBrush, 388, 180, 4, 72);
+
+
+
+            e.Graphics.DrawLine(whiteArrowPen, a, 20, a, 60);
+            e.Graphics.DrawLine(whiteArrowPen, 60, a, 20, a);
+            e.Graphics.DrawLine(whiteArrowPen, 20, b, 60, b);
+            e.Graphics.DrawLine(whiteArrowPen, a, 440, a, 480);
+            e.Graphics.DrawLine(whiteArrowPen, b, 480, b, 440);
+            e.Graphics.DrawLine(whiteArrowPen, 480, a, 440, a);
+            e.Graphics.DrawLine(whiteArrowPen, 440, b, 480, b);
+            e.Graphics.DrawLine(whiteArrowPen, b, 60, b, 20);
+            VisGraphics = e.Graphics.Save();
         }
 
         private void UpdaterEventHandler(object myObject, EventArgs myEventArgs)
         {
             _roundabout.IterateSimaultion();
-            groupBox1.Refresh();
+            groupBox1.Invalidate();
 
             CurrTimeLabel.Text = $"Time : {Roundabout.MainCurrTime} sec";
             CheckSimulationFinished();
@@ -212,7 +232,16 @@ namespace IntersectionSim
 
             Roundabout.SimulationDuration = SimulationDurationSelector.IntVal();
             SimulationDurationSelector.Enabled = false;
+
+            //Init roundabout object
+            if (ConventialRadio.Checked)
             _roundabout = new ConventionalRoundabout(patterns);
+            else
+                _roundabout = new IntelligentRoundabout(patterns);
+
+            ConventialRadio.Enabled = false;
+            IntelligentRadio.Enabled = false;
+
             ResumeButton.Enabled = true;
             PauseButton.Enabled = false;
             ManualIterButton.Enabled = true;

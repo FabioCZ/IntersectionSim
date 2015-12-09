@@ -33,7 +33,6 @@ namespace IntersectionSim.Model
             //insert cars into roundabout
             for (int i = 0; i < 4; i++)
             {
-                var helperIndex = i == 0 ? 7 : (i*2) -1;
                 if (EntryLanes[i].AreCarsWaiting && Circle[i*2] == null)
                 {
                     Circle[i*2] = EntryLanes[i].GetNextCar();
