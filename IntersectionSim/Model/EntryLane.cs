@@ -9,8 +9,8 @@ namespace IntersectionSim.Model
     public enum EntryPosition { North, West, South, East }
     public class EntryLane
     {
-        private  List<Car> CarsToSpawn;
-        private Queue<Car> QueuedCars;
+        public  List<Car> CarsToSpawn { get; private set; }
+        public List<Car> QueuedCars { get; set; }
         EntryPosition EntryPosition;
         private TrafficPattern Pattern;
 
@@ -30,13 +30,19 @@ namespace IntersectionSim.Model
             EntryPosition = pattern.Position;
             Pattern = pattern;
             CarsToSpawn = new List<Car>();
-            QueuedCars = new Queue<Car>();
+            QueuedCars = new List<Car>();
             PopulateCarsToSpawn();
         }
 
         public Car GetNextCar()
         {
-            return AreCarsWaiting ? QueuedCars.Dequeue() : null;
+            if (AreCarsWaiting)
+            {
+                var car = QueuedCars[0];
+                QueuedCars.RemoveAt(0);
+                return car;
+            }
+            return null;
         }
 
 
@@ -86,7 +92,7 @@ namespace IntersectionSim.Model
             {
                 foreach (var a in carsToAdd2)
                 {
-                    QueuedCars.Enqueue(a);
+                    QueuedCars.Add(a);
                     CarsToSpawn.Remove(a);
                 }
             }
@@ -96,7 +102,7 @@ namespace IntersectionSim.Model
         public Car PeekAtQueue()
         {
             if (QueuedCars.Any())
-                return QueuedCars.Peek();
+                return QueuedCars[0];
             var nextCarMaybe = from a in CarsToSpawn where a.EntryTime == (Roundabout.MainCurrTime + 2) select a;
             if(nextCarMaybe.Count() > 1)
                 throw new Exception("There was a car time collision.");
@@ -105,6 +111,17 @@ namespace IntersectionSim.Model
                 return nextCarMaybe.Single();
             }
             return null;
+        }
+
+        public EntryLane Clone()
+        {
+            return new EntryLane(this.Pattern.Clone())
+            {
+                CarsToSpawn = this.CarsToSpawn.Select(e => e.Clone()).ToList(),
+                EntryPosition = this.EntryPosition,
+                QueuedCars = this.QueuedCars.Select(e => e.Clone()).ToList()
+
+            };
         }
     }
 }

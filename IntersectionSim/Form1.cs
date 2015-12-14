@@ -14,16 +14,14 @@ namespace IntersectionSim
 {
     public partial class Form1 : Form
     {
-        float a = 208.57f;
-        float b = 291.41f;
+        float a = 208.57f - 10.0f;
+        float b = 291.41f - 10.0f;
         Timer Updater = new Timer();
         bool initialDraw = true;
         private bool hasStarted = false;
-        private bool firstDraw = true;
         private Roundabout _roundabout;
         private List<Tuple<float, float>> CircleCoords;
         private List<Tuple<float, float>> OuterCircleCoords;
-        private GraphicsState VisGraphics;
 
         private Pen blackPen = new Pen(Color.Black)
         {
@@ -49,26 +47,26 @@ namespace IntersectionSim
             Updater.Tick += new EventHandler(UpdaterEventHandler);
             CircleCoords = new List<Tuple<float, float>>()
             {
-                Tuple.Create(a, 150.0f),
-                Tuple.Create(150.0f, a),
-                Tuple.Create(150.0f, b),
-                Tuple.Create(a, 350.0f),
-                Tuple.Create(b, 350.0f),
-                Tuple.Create(350.0f, b),
-                Tuple.Create(350.0f, a),
-                Tuple.Create(b, 150.0f)
+                Tuple.Create(a, 140.0f),
+                Tuple.Create(140.0f, a),
+                Tuple.Create(140.0f, b),
+                Tuple.Create(a, 340.0f),
+                Tuple.Create(b, 340.0f),
+                Tuple.Create(340.0f, b),
+                Tuple.Create(340.0f, a),
+                Tuple.Create(b, 140.0f)
             };
 
             OuterCircleCoords = new List<Tuple<float, float>>()
             {
-                Tuple.Create(a, 85.0f),
-                Tuple.Create(85.0f, a),
-                Tuple.Create(85.0f, b),
-                Tuple.Create(a, 415.0f),
-                Tuple.Create(b, 415.0f),
-                Tuple.Create(415.0f, b),
-                Tuple.Create(415.0f, a),
-                Tuple.Create(b, 85.0f)
+                Tuple.Create(a, 75.0f),
+                Tuple.Create(75.0f, a),
+                Tuple.Create(75.0f, b),
+                Tuple.Create(a, 405.0f),
+                Tuple.Create(b, 405.0f),
+                Tuple.Create(405.0f, b),
+                Tuple.Create(405.0f, a),
+                Tuple.Create(b, 75.0f)
             };
 
             //Ho
@@ -78,13 +76,9 @@ namespace IntersectionSim
             };
         }
 
-        private void groupBox1_Paint(object sender, PaintEventArgs e)
-        {
-            if(firstDraw)
-                StaticGraphics(e);
-            else
-                e.Graphics.Restore(VisGraphics);
 
+        private void pictureBox3_Paint(object sender, PaintEventArgs e)
+        {
             for (int i = 0; i < 8; i++)
             {
                 //Inner
@@ -130,7 +124,6 @@ namespace IntersectionSim
                 e.Graphics.DrawString(_roundabout.EntryLanes[3].QueuedCarsMin1, font, whiteBrush, OuterCircleCoords[6].Item1 + 20, OuterCircleCoords[6].Item2 + 10);
 
             }
-
         }
 
         public void StaticGraphics(PaintEventArgs e)
@@ -169,13 +162,15 @@ namespace IntersectionSim
             e.Graphics.DrawLine(whiteArrowPen, 480, a, 440, a);
             e.Graphics.DrawLine(whiteArrowPen, 440, b, 480, b);
             e.Graphics.DrawLine(whiteArrowPen, b, 60, b, 20);
-            VisGraphics = e.Graphics.Save();
         }
 
         private void UpdaterEventHandler(object myObject, EventArgs myEventArgs)
         {
-            _roundabout.IterateSimaultion();
-            groupBox1.Invalidate();
+            (_roundabout as ConventionalRoundabout)?.IterateSimaultion();
+
+            if (_roundabout is IntelligentRoundabout)
+                _roundabout = ((IntelligentRoundabout) _roundabout).GetBestNextOptionMain();
+            pictureBox3.Invalidate();
 
             CurrTimeLabel.Text = $"Time : {Roundabout.MainCurrTime} sec";
             CheckSimulationFinished();
@@ -186,7 +181,8 @@ namespace IntersectionSim
             if (_roundabout.SimulationFinished)
             {
                 Updater.Stop();
-                MessageBox.Show("Simulation finished");
+                    
+                MessageBox.Show($"Simulation finished, avg time: {_roundabout.GetAvgWaitTimeForFinished()}, max: {_roundabout.GetMaxWaitTime()}");
                 ManualIterButton.Enabled = false;
                 PauseButton.Enabled = false;
                 ResumeButton.Enabled = false;
@@ -235,10 +231,16 @@ namespace IntersectionSim
 
             //Init roundabout object
             if (ConventialRadio.Checked)
-            _roundabout = new ConventionalRoundabout(patterns);
+            {
+                _roundabout = new ConventionalRoundabout();
+                _roundabout.Init(patterns);
+            }
             else
-                _roundabout = new IntelligentRoundabout(patterns);
+            {
+                _roundabout = new IntelligentRoundabout();
+                _roundabout.Init(patterns);
 
+            }
             ConventialRadio.Enabled = false;
             IntelligentRadio.Enabled = false;
 
@@ -267,5 +269,7 @@ namespace IntersectionSim
         {
             UpdaterEventHandler(null, null);
         }
+
+
     }
 }

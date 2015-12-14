@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CurrTimeLabel = new System.Windows.Forms.Label();
@@ -95,6 +96,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.SimulationDurationSelector = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -129,26 +131,43 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox3);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.CurrTimeLabel);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(500, 500);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Intersection Visualization";
-            this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox1_Paint);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox3.Image = global::IntersectionSim.Resource1.Roundabout_back;
+            this.pictureBox3.ImageLocation = "";
+            this.pictureBox3.Location = new System.Drawing.Point(10, 10);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(486, 486);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.WaitOnLoad = true;
+            this.pictureBox3.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox3_Paint);
             // 
             // pictureBox2
             // 
-            this.pictureBox2.ImageLocation = "roundabout.png";
+            this.pictureBox2.Image = global::IntersectionSim.Resource1.RoundaboutPictogram;
+            this.pictureBox2.ImageLocation = "";
             this.pictureBox2.Location = new System.Drawing.Point(225, 225);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(50, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
             this.pictureBox2.WaitOnLoad = true;
             // 
             // pictureBox1
@@ -161,11 +180,12 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // CurrTimeLabel
             // 
             this.CurrTimeLabel.AutoSize = true;
-            this.CurrTimeLabel.Location = new System.Drawing.Point(7, 481);
+            this.CurrTimeLabel.Location = new System.Drawing.Point(346, 14);
             this.CurrTimeLabel.Name = "CurrTimeLabel";
             this.CurrTimeLabel.Size = new System.Drawing.Size(62, 13);
             this.CurrTimeLabel.TabIndex = 0;
@@ -739,6 +759,7 @@
             this.groupBox4.Controls.Add(this.label24);
             this.groupBox4.Controls.Add(this.IntelligentRadio);
             this.groupBox4.Controls.Add(this.ConventialRadio);
+            this.groupBox4.Controls.Add(this.CurrTimeLabel);
             this.groupBox4.Controls.Add(this.ManualIterButton);
             this.groupBox4.Controls.Add(this.ResumeButton);
             this.groupBox4.Controls.Add(this.PauseButton);
@@ -766,23 +787,22 @@
             // IntelligentRadio
             // 
             this.IntelligentRadio.AutoSize = true;
-            this.IntelligentRadio.Enabled = false;
+            this.IntelligentRadio.Checked = true;
             this.IntelligentRadio.Location = new System.Drawing.Point(281, 37);
             this.IntelligentRadio.Name = "IntelligentRadio";
             this.IntelligentRadio.Size = new System.Drawing.Size(70, 17);
             this.IntelligentRadio.TabIndex = 9;
+            this.IntelligentRadio.TabStop = true;
             this.IntelligentRadio.Text = "Intelligent";
             this.IntelligentRadio.UseVisualStyleBackColor = true;
             // 
             // ConventialRadio
             // 
             this.ConventialRadio.AutoSize = true;
-            this.ConventialRadio.Checked = true;
             this.ConventialRadio.Location = new System.Drawing.Point(190, 37);
             this.ConventialRadio.Name = "ConventialRadio";
             this.ConventialRadio.Size = new System.Drawing.Size(87, 17);
             this.ConventialRadio.TabIndex = 8;
-            this.ConventialRadio.TabStop = true;
             this.ConventialRadio.Text = "Conventional";
             this.ConventialRadio.UseVisualStyleBackColor = true;
             // 
@@ -831,6 +851,11 @@
             // SpeedUpSelector
             // 
             this.SpeedUpSelector.Location = new System.Drawing.Point(139, 35);
+            this.SpeedUpSelector.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
             this.SpeedUpSelector.Name = "SpeedUpSelector";
             this.SpeedUpSelector.Size = new System.Drawing.Size(45, 20);
             this.SpeedUpSelector.TabIndex = 3;
@@ -871,7 +896,7 @@
             this.SimulationDurationSelector.Size = new System.Drawing.Size(45, 20);
             this.SimulationDurationSelector.TabIndex = 0;
             this.SimulationDurationSelector.Value = new decimal(new int[] {
-            600,
+            300,
             0,
             0,
             0});
@@ -887,7 +912,7 @@
             this.Name = "Form1";
             this.Text = "IntersectionSim";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -995,6 +1020,7 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.RadioButton IntelligentRadio;
         private System.Windows.Forms.RadioButton ConventialRadio;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

@@ -28,7 +28,7 @@ namespace IntersectionSim.Model
 
         public TrafficPattern(EntryPosition position)
         {
-            CarsPerMin = 15;
+            CarsPerMin = 10;
             Position = position;
             switch (Position)
             {
@@ -68,6 +68,18 @@ namespace IntersectionSim.Model
                 MessageBox.Show($"Percentages don't add up to 100 for {position}");
                 throw new ArgumentOutOfRangeException($"Percentages don't add up to 100 for {position}");
             }
+        }
+
+        public TrafficPattern Clone()
+        {
+            return new TrafficPattern(this.Position)
+            {
+                CarsPerMin = this.CarsPerMin,
+                ToNorthPerc = this.ToNorthPerc,
+                ToWestPerc = this.ToWestPerc,
+                ToSouthPerc = this.ToSouthPerc,
+                ToEastPerc = this.ToEastPerc
+            };
         }
     }
 }
