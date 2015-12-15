@@ -5,16 +5,37 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntersectionSim", "IntersectionSim\IntersectionSim.csproj", "{1956F3ED-0914-4C03-9AD6-37C46A5E5033}"
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "IntersectionSimDeployment", "IntersectionSimDeployment\IntersectionSimDeployment.isproj", "{F75B893A-7278-4590-8352-3A44AAEA65F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{1956F3ED-0914-4C03-9AD6-37C46A5E5033}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.Debug|Any CPU.ActiveCfg = DVD-5
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.Debug|Any CPU.Build.0 = DVD-5
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.DVD-5|Any CPU.Build.0 = DVD-5
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.Release|Any CPU.ActiveCfg = SingleImage
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.Release|Any CPU.Build.0 = SingleImage
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{F75B893A-7278-4590-8352-3A44AAEA65F0}.SingleImage|Any CPU.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
