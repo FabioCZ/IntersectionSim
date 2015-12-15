@@ -49,5 +49,25 @@ namespace IntersectionSim.Model
             return new SolidBrush(Color.FromArgb(R,G,B));
         }
 
+        /// <summary>
+        /// Gets the random int in range.
+        /// </summary>
+        /// <returns>The random int in range.</returns>
+        /// <param name="min">Minimum.</param>
+        /// <param name="max">Max.</param>
+        public static int GetRandomIntInRange(int min, int max)
+        {
+            return RandomGen.Next((max - min) + 1) + min;
+        }
+
+        public static Tuple<int, int, int, int> GetRandomDestinations()
+        {
+            int n = GetRandomIntInRange(10, 32);
+            int w = GetRandomIntInRange(10, 32);
+            int s = GetRandomIntInRange(10, 32);
+            int e = 100 - n - w - s;
+            return Tuple.Create(n, w, s, e);
+        }
+
     }
 }

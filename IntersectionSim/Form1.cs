@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using JR.Utils.GUI.Forms;
 
 namespace IntersectionSim
 {
@@ -138,10 +141,10 @@ namespace IntersectionSim
 
             //roundabout circle
             //e.Graphics.DrawEllipse(blackPen, 110, 110, 280, 280);
-            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f,31);
-            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f+90,31);
-            e.Graphics.DrawArc(blackPen,110,110,280,280,29.5f+180,31);
-            e.Graphics.DrawArc(blackPen,110,110,280,280,29f+270,31);
+            e.Graphics.DrawArc(blackPen, 110, 110, 280, 280, 29.5f, 31);
+            e.Graphics.DrawArc(blackPen, 110, 110, 280, 280, 29.5f + 90, 31);
+            e.Graphics.DrawArc(blackPen, 110, 110, 280, 280, 29.5f + 180, 31);
+            e.Graphics.DrawArc(blackPen, 110, 110, 280, 280, 29f + 270, 31);
             e.Graphics.FillEllipse(greyBrush, 110, 110, 280, 280);
             e.Graphics.DrawEllipse(blackPen, 200, 200, 100, 100);
             e.Graphics.FillEllipse(greenBrush, 200, 200, 100, 100);
@@ -169,7 +172,7 @@ namespace IntersectionSim
             (_roundabout as ConventionalRoundabout)?.IterateSimaultion();
 
             if (_roundabout is IntelligentRoundabout)
-                _roundabout = ((IntelligentRoundabout) _roundabout).GetBestNextOptionMain();
+                _roundabout = ((IntelligentRoundabout)_roundabout).GetBestNextOptionMain();
             pictureBox3.Invalidate();
 
             CurrTimeLabel.Text = $"Time : {Roundabout.MainCurrTime} sec";
@@ -181,7 +184,7 @@ namespace IntersectionSim
             if (_roundabout.SimulationFinished)
             {
                 Updater.Stop();
-                    
+
                 MessageBox.Show($"Simulation finished, avg time: {_roundabout.GetAvgWaitTimeForFinished()}, max: {_roundabout.GetMaxWaitTime()}");
                 ManualIterButton.Enabled = false;
                 PauseButton.Enabled = false;
@@ -270,6 +273,96 @@ namespace IntersectionSim
             UpdaterEventHandler(null, null);
         }
 
+        private void RunSampleButton_Click(object sender, EventArgs e)
+        {
 
+            string resString = $"Results: {Environment.NewLine}";
+            var cpmMin = Convert.ToInt32(MinCpmSelector.Value);
+            var cpmMax = Convert.ToInt32(MaxCpmSelector.Value);
+            IntelligentRoundabout intelligent = null;
+            ConventionalRoundabout conventional = null;
+
+            var cpmN = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+            var cpmW = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+            var cpmS = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+            var cpmE = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+
+            var dN = Tools.GetRandomDestinations();
+            var dW = Tools.GetRandomDestinations();
+            var dS = Tools.GetRandomDestinations();
+            var dE = Tools.GetRandomDestinations();
+
+            for (int i = 0; i < Convert.ToInt32(NumOfRunsSelector.Value); i++)
+            {
+                List<TrafficPattern> patterns = new List<TrafficPattern>();
+                Roundabout.SimulationDuration = /*Tools.GetRandomIntInRange(Convert.ToInt32(MinDurationSelector.Value),Convert.ToInt32(MaxDurationSelector.Value)) */  60 + i * 60;
+
+
+                patterns.Add(new TrafficPattern(EntryPosition.North, cpmN, dN.Item1,
+                    dN.Item2, dN.Item3, dN.Item4));
+                patterns.Add(new TrafficPattern(EntryPosition.West, cpmW, dW.Item1,
+                    dW.Item2, dW.Item3, dW.Item4));
+                patterns.Add(new TrafficPattern(EntryPosition.South, cpmS, dS.Item1,
+                    dS.Item2, dS.Item3, dS.Item4));
+                patterns.Add(new TrafficPattern(EntryPosition.East, cpmE, dE.Item1,
+                    dE.Item2, dE.Item3, dE.Item4));
+                resString += $"ROUNDABOUT {i}, duration: {Roundabout.SimulationDuration} sec: {Environment.NewLine}";
+                resString +=
+                    $"N EntryLane: cpm: {cpmN} toN: {dN.Item1}, toW: {dN.Item2}, toS: {dN.Item3}, toE: {dN.Item4} {Environment.NewLine}";
+                resString +=
+                    $"W EntryLane: cpm: {cpmW} toN: {dW.Item1}, toW: {dW.Item2}, toS: {dW.Item3}, toE: {dW.Item4} {Environment.NewLine}";
+                resString +=
+                    $"S EntryLane: cpm: {cpmS} toN: {dS.Item1}, toW: {dS.Item2}, toS: {dS.Item3}, toE: {dS.Item4} {Environment.NewLine}";
+                resString +=
+                    $"E EntryLane: cpm: {cpmE} toN: {dE.Item1}, toW: {dE.Item2}, toS: {dE.Item3}, toE: {dE.Item4} {Environment.NewLine}";
+
+                intelligent = new IntelligentRoundabout();
+                intelligent.Init(patterns);
+                while (!intelligent.SimulationFinished)
+                {
+                    intelligent = intelligent.GetBestNextOptionMain();
+                }
+                resString += $"Intelligent Roundabout results: avg time: {Math.Round(intelligent.GetAvgWaitTimeForFinished(),3)}, max: {intelligent.GetMaxWaitTime()}, dur: {intelligent.OwnCurrTime}{Environment.NewLine}";
+
+                conventional = new ConventionalRoundabout();
+                conventional.Init(patterns);
+                while (!conventional.SimulationFinished)
+                {
+                    conventional.IterateSimaultion();
+                }
+                resString += $"Conventional Roundabout results: avg time: {Math.Round(conventional.GetAvgWaitTimeForFinished(),3)}, max: {conventional.GetMaxWaitTime()}, dur: {conventional.OwnCurrTime}{Environment.NewLine}";
+                resString += $"{Environment.NewLine}{Environment.NewLine}";
+
+
+            }
+            var res = FlexibleMessageBox.Show(resString, "Finished. OK to save to file, Cancel to dismiss", MessageBoxButtons.OKCancel);
+            if (res == DialogResult.OK)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var ms = saveFileDialog.OpenFile();
+                    Debug.WriteLine((ms as FileStream).Name);
+                    StreamWriter sw = new StreamWriter(ms, new UnicodeEncoding());
+                    try
+                    {
+                        sw.Write(resString);
+                        sw.Flush(); //otherwise you are risking empty stream
+                        ms.Seek(0, SeekOrigin.Begin);
+
+                        // Test and work with the stream here. 
+                        // If you need to start back at the beginning, be sure to Seek again.
+                    }
+                    finally
+                    {
+                        sw.Dispose();
+                        MessageBox.Show($"Saved to: {(ms as FileStream)?.Name}");
+                    }
+                }
+            }
+        }
     }
 }

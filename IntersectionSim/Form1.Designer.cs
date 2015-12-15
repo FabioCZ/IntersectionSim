@@ -95,6 +95,18 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.SimulationDurationSelector = new System.Windows.Forms.NumericUpDown();
+            this.RunSampleButton = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.NumOfRunsSelector = new System.Windows.Forms.NumericUpDown();
+            this.MaxDurationSelector = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.MinCpmSelector = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
+            this.MaxCpmSelector = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.MinDurationSelector = new System.Windows.Forms.NumericUpDown();
+            this.label29 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -127,6 +139,12 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedUpSelector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SimulationDurationSelector)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumOfRunsSelector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxDurationSelector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinCpmSelector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCpmSelector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinDurationSelector)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -147,7 +165,7 @@
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox3.Image = global::IntersectionSim.Resource1.Roundabout_back;
             this.pictureBox3.ImageLocation = "";
-            this.pictureBox3.Location = new System.Drawing.Point(10, 10);
+            this.pictureBox3.Location = new System.Drawing.Point(10, 12);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(486, 486);
@@ -185,7 +203,7 @@
             // CurrTimeLabel
             // 
             this.CurrTimeLabel.AutoSize = true;
-            this.CurrTimeLabel.Location = new System.Drawing.Point(346, 14);
+            this.CurrTimeLabel.Location = new System.Drawing.Point(72, 14);
             this.CurrTimeLabel.Name = "CurrTimeLabel";
             this.CurrTimeLabel.Size = new System.Drawing.Size(62, 13);
             this.CurrTimeLabel.TabIndex = 0;
@@ -203,7 +221,7 @@
             this.groupBox2.Size = new System.Drawing.Size(170, 620);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Car Generation";
+            this.groupBox2.Text = "Animated Simulation Settings";
             // 
             // LaneGroup4
             // 
@@ -768,17 +786,17 @@
             this.groupBox4.Controls.Add(this.StartButton);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.SimulationDurationSelector);
-            this.groupBox4.Location = new System.Drawing.Point(13, 520);
+            this.groupBox4.Location = new System.Drawing.Point(260, 520);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(500, 113);
+            this.groupBox4.Size = new System.Drawing.Size(253, 113);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Simulation Options";
+            this.groupBox4.Text = "Animated Simulation";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(190, 16);
+            this.label24.Location = new System.Drawing.Point(72, 41);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(88, 13);
             this.label24.TabIndex = 10;
@@ -788,7 +806,7 @@
             // 
             this.IntelligentRadio.AutoSize = true;
             this.IntelligentRadio.Checked = true;
-            this.IntelligentRadio.Location = new System.Drawing.Point(281, 37);
+            this.IntelligentRadio.Location = new System.Drawing.Point(75, 89);
             this.IntelligentRadio.Name = "IntelligentRadio";
             this.IntelligentRadio.Size = new System.Drawing.Size(70, 17);
             this.IntelligentRadio.TabIndex = 9;
@@ -799,7 +817,7 @@
             // ConventialRadio
             // 
             this.ConventialRadio.AutoSize = true;
-            this.ConventialRadio.Location = new System.Drawing.Point(190, 37);
+            this.ConventialRadio.Location = new System.Drawing.Point(75, 63);
             this.ConventialRadio.Name = "ConventialRadio";
             this.ConventialRadio.Size = new System.Drawing.Size(87, 17);
             this.ConventialRadio.TabIndex = 8;
@@ -809,7 +827,7 @@
             // ManualIterButton
             // 
             this.ManualIterButton.Enabled = false;
-            this.ManualIterButton.Location = new System.Drawing.Point(419, 89);
+            this.ManualIterButton.Location = new System.Drawing.Point(168, 89);
             this.ManualIterButton.Name = "ManualIterButton";
             this.ManualIterButton.Size = new System.Drawing.Size(75, 20);
             this.ManualIterButton.TabIndex = 7;
@@ -820,7 +838,7 @@
             // ResumeButton
             // 
             this.ResumeButton.Enabled = false;
-            this.ResumeButton.Location = new System.Drawing.Point(419, 37);
+            this.ResumeButton.Location = new System.Drawing.Point(168, 37);
             this.ResumeButton.Name = "ResumeButton";
             this.ResumeButton.Size = new System.Drawing.Size(75, 20);
             this.ResumeButton.TabIndex = 6;
@@ -831,7 +849,7 @@
             // PauseButton
             // 
             this.PauseButton.Enabled = false;
-            this.PauseButton.Location = new System.Drawing.Point(419, 63);
+            this.PauseButton.Location = new System.Drawing.Point(168, 63);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 20);
             this.PauseButton.TabIndex = 5;
@@ -842,15 +860,15 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 37);
+            this.label13.Location = new System.Drawing.Point(8, 66);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(112, 13);
+            this.label13.Size = new System.Drawing.Size(58, 13);
             this.label13.TabIndex = 4;
-            this.label13.Text = "Time Speed Up Coeff:";
+            this.label13.Text = "Speed-Up:";
             // 
             // SpeedUpSelector
             // 
-            this.SpeedUpSelector.Location = new System.Drawing.Point(139, 35);
+            this.SpeedUpSelector.Location = new System.Drawing.Point(11, 86);
             this.SpeedUpSelector.Maximum = new decimal(new int[] {
             999,
             0,
@@ -867,7 +885,7 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(419, 11);
+            this.StartButton.Location = new System.Drawing.Point(168, 11);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 20);
             this.StartButton.TabIndex = 2;
@@ -878,15 +896,15 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 16);
+            this.label12.Location = new System.Drawing.Point(8, 14);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(127, 13);
+            this.label12.Size = new System.Drawing.Size(50, 13);
             this.label12.TabIndex = 1;
-            this.label12.Text = "Simulation Duration (sec):";
+            this.label12.Text = "Duration:";
             // 
             // SimulationDurationSelector
             // 
-            this.SimulationDurationSelector.Location = new System.Drawing.Point(139, 14);
+            this.SimulationDurationSelector.Location = new System.Drawing.Point(11, 39);
             this.SimulationDurationSelector.Maximum = new decimal(new int[] {
             1800,
             0,
@@ -901,11 +919,192 @@
             0,
             0});
             // 
+            // RunSampleButton
+            // 
+            this.RunSampleButton.Location = new System.Drawing.Point(160, 63);
+            this.RunSampleButton.Name = "RunSampleButton";
+            this.RunSampleButton.Size = new System.Drawing.Size(75, 43);
+            this.RunSampleButton.TabIndex = 11;
+            this.RunSampleButton.Text = "Run Sample Data Sets";
+            this.RunSampleButton.UseVisualStyleBackColor = true;
+            this.RunSampleButton.Click += new System.EventHandler(this.RunSampleButton_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.MinDurationSelector);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.MaxCpmSelector);
+            this.groupBox3.Controls.Add(this.label28);
+            this.groupBox3.Controls.Add(this.MinCpmSelector);
+            this.groupBox3.Controls.Add(this.label27);
+            this.groupBox3.Controls.Add(this.MaxDurationSelector);
+            this.groupBox3.Controls.Add(this.label26);
+            this.groupBox3.Controls.Add(this.NumOfRunsSelector);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.RunSampleButton);
+            this.groupBox3.Location = new System.Drawing.Point(13, 520);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(241, 113);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Run Randomized Data Sets";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(157, 11);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(57, 13);
+            this.label25.TabIndex = 13;
+            this.label25.Text = "# of Runs:";
+            // 
+            // NumOfRunsSelector
+            // 
+            this.NumOfRunsSelector.Location = new System.Drawing.Point(160, 28);
+            this.NumOfRunsSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumOfRunsSelector.Name = "NumOfRunsSelector";
+            this.NumOfRunsSelector.Size = new System.Drawing.Size(45, 20);
+            this.NumOfRunsSelector.TabIndex = 14;
+            this.NumOfRunsSelector.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // MaxDurationSelector
+            // 
+            this.MaxDurationSelector.Location = new System.Drawing.Point(89, 86);
+            this.MaxDurationSelector.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+            this.MaxDurationSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxDurationSelector.Name = "MaxDurationSelector";
+            this.MaxDurationSelector.Size = new System.Drawing.Size(45, 20);
+            this.MaxDurationSelector.TabIndex = 16;
+            this.MaxDurationSelector.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(10, 88);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(73, 13);
+            this.label26.TabIndex = 15;
+            this.label26.Text = "Max Duration:";
+            // 
+            // MinCpmSelector
+            // 
+            this.MinCpmSelector.Location = new System.Drawing.Point(89, 13);
+            this.MinCpmSelector.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+            this.MinCpmSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MinCpmSelector.Name = "MinCpmSelector";
+            this.MinCpmSelector.Size = new System.Drawing.Size(45, 20);
+            this.MinCpmSelector.TabIndex = 18;
+            this.MinCpmSelector.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(10, 15);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(67, 13);
+            this.label27.TabIndex = 17;
+            this.label27.Text = "Min Car/min:";
+            // 
+            // MaxCpmSelector
+            // 
+            this.MaxCpmSelector.Location = new System.Drawing.Point(89, 37);
+            this.MaxCpmSelector.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+            this.MaxCpmSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxCpmSelector.Name = "MaxCpmSelector";
+            this.MaxCpmSelector.Size = new System.Drawing.Size(45, 20);
+            this.MaxCpmSelector.TabIndex = 20;
+            this.MaxCpmSelector.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(10, 39);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(70, 13);
+            this.label28.TabIndex = 19;
+            this.label28.Text = "Max Car/min:";
+            // 
+            // MinDurationSelector
+            // 
+            this.MinDurationSelector.Location = new System.Drawing.Point(89, 62);
+            this.MinDurationSelector.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+            this.MinDurationSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MinDurationSelector.Name = "MinDurationSelector";
+            this.MinDurationSelector.Size = new System.Drawing.Size(45, 20);
+            this.MinDurationSelector.TabIndex = 22;
+            this.MinDurationSelector.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(10, 64);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(70, 13);
+            this.label29.TabIndex = 21;
+            this.label29.Text = "Min Duration:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 641);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -948,6 +1147,13 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedUpSelector)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SimulationDurationSelector)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumOfRunsSelector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxDurationSelector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinCpmSelector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCpmSelector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinDurationSelector)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1021,6 +1227,18 @@
         private System.Windows.Forms.RadioButton IntelligentRadio;
         private System.Windows.Forms.RadioButton ConventialRadio;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button RunSampleButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.NumericUpDown NumOfRunsSelector;
+        private System.Windows.Forms.NumericUpDown MaxDurationSelector;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown MinDurationSelector;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.NumericUpDown MaxCpmSelector;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.NumericUpDown MinCpmSelector;
+        private System.Windows.Forms.Label label27;
     }
 }
 
