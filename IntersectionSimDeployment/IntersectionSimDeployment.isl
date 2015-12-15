@@ -340,7 +340,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>IntersectionSim.exe</td><td>{31FEC2BC-52BC-4FF3-9C03-A43F378CF508}</td><td>INSTALLDIR</td><td>2</td><td/><td>intersectionsim.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>IntersectionSim.exe</td><td>{95D18B10-4426-4A94-8840-09F6A63C03F3}</td><td>INSTALLDIR</td><td>2</td><td/><td>intersectionsim.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -2022,7 +2022,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>IntersectionSim.exe</td><td/><td/><td>_472288DF_7B44_4657_8AEE_221B7B29BC46_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>IntersectionSim.exe</td><td/><td/><td>_F839F35B_C74A_462B_970F_CDF8743D9FA6_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -3426,6 +3426,8 @@
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>1982048082</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch |ContentFiles</td><td>0</td><td/><td>1982005363</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch IntersectionSim.exe</td><td>0</td><td/><td>1982013619</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch IntersectionSim.exe</td><td>0</td><td/><td>1982007348</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch IntersectionSim.exe</td><td>0</td><td/><td>1982027860</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>1982048082</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>1982048082</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1982048082</td></row>
@@ -3833,6 +3835,8 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\IntersectionSim\Resources\RoundaboutPictogram.ico</td><td>0</td></row>
 		<row><td>IntersectionSim.ex_1E20B427422C477797AFDBB31FED2E87.exe</td><td/><td>&lt;VSSolutionFolder&gt;\IntersectionSim\Resources\RoundaboutPictogram.ico</td><td>0</td></row>
+		<row><td>IntersectionSim.ex_9B7FD4B8B39844768692BED5A89C9A31.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
+		<row><td>IntersectionSim.ex_A720C68B009D40BFA772639C635B7877.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>IntersectionSim.ex_C7A516CD24F6412194A6B7BDF33051CF.exe</td><td/><td>&lt;VSSolutionFolder&gt;\IntersectionSim\Resources\RoundaboutPictogram.ico</td><td>0</td></row>
 	</table>
 
@@ -4340,7 +4344,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{F36E7416-81AF-4D17-8DB1-235F67F5B4EB}</td><td/></row>
 		<row><td>ProductName</td><td>IntersectionSim</td><td/></row>
-		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>1.1.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4503,8 +4507,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>IntersectionSim.exe</td><td>inters_1_intersectionsim</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>IntersectionSim.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>IntersectionSim.ex_1E20B427422C477797AFDBB31FED2E87.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>IntersectionSim.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>IntersectionSim.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>IntersectionSim.ex_C7A516CD24F6412194A6B7BDF33051CF.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>IntersectionSim.exe</td><td>inters_1_intersectionsim</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td>IntersectionSim.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>IntersectionSim.ex_A720C68B009D40BFA772639C635B7877.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

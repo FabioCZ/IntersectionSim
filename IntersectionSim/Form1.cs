@@ -282,21 +282,19 @@ namespace IntersectionSim
             IntelligentRoundabout intelligent = null;
             ConventionalRoundabout conventional = null;
 
-            var cpmN = Tools.GetRandomIntInRange(cpmMin, cpmMax);
-            var cpmW = Tools.GetRandomIntInRange(cpmMin, cpmMax);
-            var cpmS = Tools.GetRandomIntInRange(cpmMin, cpmMax);
-            var cpmE = Tools.GetRandomIntInRange(cpmMin, cpmMax);
-
-            var dN = Tools.GetRandomDestinations();
-            var dW = Tools.GetRandomDestinations();
-            var dS = Tools.GetRandomDestinations();
-            var dE = Tools.GetRandomDestinations();
-
             for (int i = 0; i < Convert.ToInt32(NumOfRunsSelector.Value); i++)
             {
                 List<TrafficPattern> patterns = new List<TrafficPattern>();
-                Roundabout.SimulationDuration = /*Tools.GetRandomIntInRange(Convert.ToInt32(MinDurationSelector.Value),Convert.ToInt32(MaxDurationSelector.Value)) */  60 + i * 60;
+                Roundabout.SimulationDuration = Tools.GetRandomIntInRange(Convert.ToInt32(MinDurationSelector.Value),Convert.ToInt32(MaxDurationSelector.Value));
+                var cpmN = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+                var cpmW = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+                var cpmS = Tools.GetRandomIntInRange(cpmMin, cpmMax);
+                var cpmE = Tools.GetRandomIntInRange(cpmMin, cpmMax);
 
+                var dN = Tools.GetRandomDestinations();
+                var dW = Tools.GetRandomDestinations();
+                var dS = Tools.GetRandomDestinations();
+                var dE = Tools.GetRandomDestinations();
 
                 patterns.Add(new TrafficPattern(EntryPosition.North, cpmN, dN.Item1,
                     dN.Item2, dN.Item3, dN.Item4));
